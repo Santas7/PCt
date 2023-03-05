@@ -40,6 +40,7 @@ class MainWindow(QMainWindow):
         self.input_user.setFixedSize(QSize(360, 40))
         self.input_user.setFont(font)
         self.input_user.setStyleSheet("color: white")
+        self.input_user.setPlaceholderText("[user name]")
 
         # panel input ip
         self.input_ip = QLineEdit('', self)
@@ -47,6 +48,7 @@ class MainWindow(QMainWindow):
         self.input_ip.setFixedSize(QSize(360, 40))
         self.input_ip.setFont(font)
         self.input_ip.setStyleSheet("color: white")
+        self.input_ip.setPlaceholderText("[ipv4 or ipv6]")
 
         # panel input password connect
         self.input_pass = QLineEdit('', self)
@@ -54,21 +56,33 @@ class MainWindow(QMainWindow):
         self.input_pass.setFixedSize(QSize(360, 40))
         self.input_pass.setFont(font)
         self.input_pass.setStyleSheet("color: white")
+        self.input_pass.setPlaceholderText("[password]")
 
         # buttons
+        # 1. start
         self.start = QPushButton("CONNECT TO", self)
         self.start.setFixedSize(QSize(150, 50))
         self.start.move(10, 260)
         self.start.setFont(font)
         self.start.setStyleSheet("background-color : #ff5757; color: white")
 
+        # 2. end (exit)
         self.end = QPushButton("EXIT..", self)
         self.end.setFixedSize(QSize(150, 50))
         self.end.move(170, 260)
         self.end.setFont(font)
         self.end.setStyleSheet("background-color : #ff5757; color: white")
 
+        # events on the button
+        self.start.clicked.connect(self.connect)
+        self.end.clicked.connect(self.exit)
         self.show()
+    
+    def connect(self):
+        pass
+    
+    def exit(self):
+        self.close()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
