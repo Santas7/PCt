@@ -3,6 +3,13 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QFil
     QVBoxLayout, QTextEdit, QProgressBar
 from PyQt6 import QtGui, QtWidgets, QtCore
 import sys
+import subprocess
+import pyperclip
+import keyboard
+import pyautogui
+import datetime
+import time
+import socket
 
 
 class MainWindow(QMainWindow):
@@ -76,11 +83,24 @@ class MainWindow(QMainWindow):
         # events on the button
         self.start.clicked.connect(self.connect)
         self.end.clicked.connect(self.exit)
+
         self.show()
-    
+
     def connect(self):
-        pass
-    
+        socket_server = socket.socket()
+        socket_server.connect((self.input_ip.text(), 8080))
+
+        socket_server.send(self.input_user.text().encode())
+        server_name = socket_server.recv(1024)
+        server_name = server_name.decode()
+
+        print(server_name, ' has joined in chat...')
+        while True:
+            message = (socket_server.recv(1024)).decode()
+            print(f"<{server_name}>" + message)
+            message = input(f"<{self.input_user.text()}> ")
+            socket_server.send(message.encode())
+
     def exit(self):
         self.close()
 
