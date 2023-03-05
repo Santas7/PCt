@@ -14,7 +14,10 @@ class MainWindow(QMainWindow):
         self.label = QLabel("", self)
         font = QtGui.QFont()
         font.setFamily('CeraPro-Bold')  # font
-        font.setPointSize(14)  # size of font шрифта
+        font.setPointSize(14)  # size of font
+        app_icon = QtGui.QIcon()
+        app_icon.addFile('icon/PCt.png', QtCore.QSize(256, 256))
+        app.setWindowIcon(app_icon)
         self.show()
 
 if __name__ == "__main__":
